@@ -1,0 +1,14 @@
+Package: STAT302package
+Title: UW STAT302 Project3 Package
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Yichen",
+           family = "Liu",
+           role = c("aut", "cre"),
+           email = "liuy344@uw.edu")
+Description: This package is for the project2 of Stat302. It only includes the four required functions.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
