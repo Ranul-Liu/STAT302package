@@ -1,21 +1,21 @@
 #' T-test function
-#' 
+#'
 #' This function does one sample t-test.
-#' 
+#'
 #' @param x Numeric vector of data to be tested.
 #' @param alternative A string specifying the alternative hypothesis,
 #'   only accept "two.sided", "less", or "greater".
-#' @param mu The null hypothesis of the mean of \data{x}.
+#' @param mu The null hypothesis of the mean of \code{x}.
 #' @keywords inference
-#' 
+#'
 #' @return A list of t-test parameters, includes \code{test_stat},
 #'   \code{df}, \code{alternative}, and \code{p_val}.
-#' 
+#'
 #' @examples
 #' my_t.test(my_gapminder$lifeExp, "two.sided", 60)
 #' my_t.test(my_gapminder$lifeExp, "less", 60)
 #' my_t.test(my_gapminder$lifeExp, "greater", 60)
-#' 
+#'
 #' @export
 my_t.test <- function(x, alternative, mu) {
   if (!is.numeric(x) | !is.numeric(mu)) {
@@ -36,7 +36,7 @@ my_t.test <- function(x, alternative, mu) {
     } else {
       p <- 2 * min(p_less, p_greater)
     }
-    toReturn <- list(t, df, alternative, p)
+    toReturn <- list(round(t, 3), df, alternative, round(p, 3))
     names(toReturn) <- c("test_stat", "df", "alternative", "p_val")
     return(toReturn)
   }

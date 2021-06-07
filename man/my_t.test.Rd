@@ -12,7 +12,7 @@ my_t.test(x, alternative, mu)
 \item{alternative}{A string specifying the alternative hypothesis,
 only accept "two.sided", "less", or "greater".}
 
-\item{mu}{The null hypothesis of the mean of \data{x}.}
+\item{mu}{The null hypothesis of the mean of \code{x}.}
 }
 \value{
 A list of t-test parameters, includes \code{test_stat},

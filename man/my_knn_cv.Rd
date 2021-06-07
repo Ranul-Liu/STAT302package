@@ -9,7 +9,7 @@ my_knn_cv(train, cl, k_nn, k_cv)
 \arguments{
 \item{train}{The training data frame.}
 
-\item{cl}{A vector of true class value of \data{train}.}
+\item{cl}{A vector of true class value of \code{train}.}
 
 \item{k_nn}{An int representing the number of neighbors in knn.}
 
@@ -23,7 +23,10 @@ the mean rate of cross-validation misclassification error \code{cv-err}.
 This function does Cross-Validation k-Nearest Neighbors prediction.
 }
 \examples{
-my_knn_cv(train_df, result_df, 5, 5)
+my_knn_cv(na.omit(my_penguins) \%>\% dplyr::select(body_mass_g, bill_length_mm,
+                                                 bill_depth_mm,
+                                                 flipper_length_mm),
+          na.omit(my_penguins) \%>\% dplyr::select(species), 5, 5)
 
 }
 \keyword{prediction}

@@ -18,7 +18,8 @@ A number of the mean rate of cross-validation misclassification.
 This function does Cross-Validation Random Forest prediction.
 }
 \examples{
-my_rf_cv(rf_train_df, 5)
+my_rf_cv(na.omit(my_penguins) \%>\% dplyr::select(body_mass_g, bill_length_mm,
+                                       bill_depth_mm, flipper_length_mm), 5)
 
 }
 \keyword{prediction}
