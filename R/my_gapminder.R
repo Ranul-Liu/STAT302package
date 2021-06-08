@@ -1,12 +1,12 @@
 #' Gapminder data.
-#' 
+#'
 #' Excerpt of the Gapminder data on life expectancy, GDP per capita, and
 #' population by country.
-#' This data and documentation come from the \code{gapminder} package, 
+#' This data and documentation come from the \code{gapminder} package,
 #' available as \code{\link[gapminder]{gapminder}}.
-#' 
+#'
 #' @format The main data frame \code{gapminder} has 1704 rows and 6 variables:
-#' \describe{ 
+#' \describe{
 #'   \item{country}{factor with 142 levels}
 #'   \item{continent}{factor with 5 levels}
 #'   \item{year}{ranges from 1952 to 2007 in increments of 5 years}
@@ -14,7 +14,7 @@
 #'   \item{pop}{population}
 #'   \item{gdpPercap}{GDP per capita (US$, inflation-adjusted)}
 #'   }
-#'   
+#'
 #' The supplemental data frame \code{\link[gapminder]{gapminder_unfiltered}} was not
 #' filtered on \code{year} or for complete data and has 3313 rows.
 #'
@@ -22,6 +22,7 @@
 #' @seealso \code{\link[gapminder]{country_colors}} for a nice color scheme for the countries
 #' @importFrom tibble tibble
 #' @examples
+#' gapminder <- my_gapminder
 #' str(gapminder)
 #' head(gapminder)
 #' summary(gapminder)
@@ -29,18 +30,18 @@
 #' aggregate(lifeExp ~ continent, gapminder, median)
 #' plot(lifeExp ~ year, gapminder, subset = country == "Cambodia", type = "b")
 #' plot(lifeExp ~ gdpPercap, gapminder, subset = year == 2007, log = "x")
-#' 
+#'
 #' if (require("dplyr")) {
 #' gapminder %>%
 #'   filter(year == 2007) %>%
 #'   group_by(continent) %>%
 #'   summarise(lifeExp = median(lifeExp))
-#' 
+#'
 #' # how many unique countries does the data contain, by continent?
 #' gapminder %>%
 #'   group_by(continent) %>%
 #'   summarize(n_obs = n(), n_countries = n_distinct(country))
-#' 
+#'
 #' # by continent, which country experienced the sharpest 5-year drop in
 #' # life expectancy and what was the drop?
 #' gapminder %>%

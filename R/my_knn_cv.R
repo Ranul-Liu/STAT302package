@@ -12,10 +12,11 @@
 #'   the mean rate of cross-validation misclassification error \code{cv-err}.
 #'
 #' @examples
-#' my_knn_cv(na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,
-#'                                                  bill_depth_mm,
-#'                                                  flipper_length_mm),
-#'           na.omit(my_penguins) %>% dplyr::select(species), 5, 5)
+#' train <- na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,
+#'                                                 bill_depth_mm,
+#'                                                 flipper_length_mm)
+#' cl <- na.omit(my_penguins) %>% dplyr::select(species)
+#' my_knn_cv(train, cl, 5, 5)
 #'
 #' @export
 my_knn_cv <- function(train, cl, k_nn, k_cv) {

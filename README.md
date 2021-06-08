@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Ranul-Liu/STAT302package/workflows/R-CMD-check/badge.svg)](https://github.com/Ranul-Liu/STAT302package/actions)
-[![codecov](https://codecov.io/gh/GITHUB_USERNAME/REPO_NAME/branch/master/graph/badge.svg)](https://codecov.io/gh/GITHUB_USERNAME/REPO_NAME)
+[![codecov](https://codecov.io/gh/Ranul-Liu/STAT302package/branch/master/graph/badge.svg)](https://codecov.io/gh/Ranul-Liu/STAT302package)
 <!-- badges: end -->
 
 The goal of STAT302package is to ...

@@ -9,8 +9,10 @@
 #' @return A number of the mean rate of cross-validation misclassification.
 #'
 #' @examples
-#' my_rf_cv(na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,
-#'                                        bill_depth_mm, flipper_length_mm), 5)
+#' train <- na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,
+#'                                                 bill_depth_mm,
+#'                                                 flipper_length_mm)
+#' my_rf_cv(train, 5)
 #'
 #' @export
 my_rf_cv <- function(train, k_cv) {
