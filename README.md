@@ -6,21 +6,26 @@
 [![codecov](https://codecov.io/gh/Ranul-Liu/STAT302package/branch/master/graph/badge.svg)](https://codecov.io/gh/Ranul-Liu/STAT302package)
 <!-- badges: end -->
 
-The goal of STAT302package is to ...
+The goal of `STAT302package` package is for Stat302. It includes `my_t.test`, `my_lm`, `my_knn_cv` and `my_rf_cv`
 
 ## Installation
 
-You can install the released version of STAT302package from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of STAT302package from Github using:
 
 ``` r
-install.packages("STAT302package")
+devtools::install_github("Ranul-Liu/STAT302package")
+library(STAT302package)
 ```
 
-## Example
+## Use
 
-This is a basic example which shows you how to solve a common problem:
+To view the vignette:
 
 ``` r
+devtools::install_github("Ranul-Liu/STAT302package", build_vignette = TRUE, build_opts = c())
 library(STAT302package)
-## basic example code
+# Use this to view the vignette in the STAT302package HTML help
+help(package = "STAT302package", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "STAT302package")
 ```

@@ -12,7 +12,7 @@ my_rf_cv(train, k_cv)
 \item{k_cv}{An int representing the number of folds in cv.}
 }
 \value{
-A number of the mean rate of cross-validation misclassification.
+A number of the mean rate of cross-validation the MSE of predictions.
 }
 \description{
 This function does Cross-Validation Random Forest prediction.

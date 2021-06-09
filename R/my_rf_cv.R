@@ -6,7 +6,7 @@
 #' @param k_cv An int representing the number of folds in cv.
 #' @keywords prediction
 #'
-#' @return A number of the mean rate of cross-validation misclassification.
+#' @return A number of the mean rate of cross-validation the MSE of predictions.
 #'
 #' @examples
 #' train <- na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,

@@ -15,6 +15,134 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(STAT302package)
 ```
+
+## Introduction
+
+The goal of `STAT302package` package is for Stat302. It includes `my_t.test`, `my_lm`, `my_knn_cv` and `my_rf_cv`. It also includes data `my_gapminder` and `my_penguins`
+You can install the released version of STAT302package from Github using:
+
+```{r, eval = FALSE}
+devtools::install_github("Ranul-Liu/STAT302package")
+library(STAT302package)
+```
+
+## Tutorials
+
+### my_t.test
+
+Null hypothesis: μ = 60
+Alternative hypothesis: μ != 60
+
+```{r}
+my_t.test(my_gapminder$lifeExp, "two.sided", 60)
+```
+
+p_val > α = 0.05, so we cannot reject the null hypothesis. There is no evidence supporting that μ != 60.
+
+Null hypothesis: μ >= 60
+Alternative hypothesis: μ < 60
+
+```{r}
+my_t.test(my_gapminder$lifeExp, "less", 60)
+```
+
+p_val < α = 0.05, so we can reject the null hypothesis. There is evidence supporting that μ < 60.
+
+Null hypothesis: μ <= 60
+Alternative hypothesis: μ > 60
+
+```{r}
+my_t.test(my_gapminder$lifeExp, "greater", 60)
+```
+
+p_val > α = 0.05, so we cannot reject the null hypothesis. There is no evidence supporting that μ > 60.
+
+### my_lm
+
+```{r}
+model1 <- my_lm(lifeExp ~ gdpPercap + continent, my_gapminder)
+model1
+```
+
+Estimate of gdpPercap is 0.00045, which means that one unit increase in gdpPercap will not make lifeExp increase by 0.00045 unit.
+The null hypothesis is that this coefficient is equal to 0, and alternative hypothesis is that this coefficient is not equal to 0. Pr < α, so we can reject the null hypothesis. We are confident that the coefficient of gdpPercap is not 0.
+
+```{r}
+x <- model.matrix(lifeExp ~ gdpPercap + continent, my_gapminder)
+y_hat <- x %*% model1[, 1]
+y <- my_gapminder$lifeExp
+toPlot <- as.data.frame(cbind(y_hat, y))
+ggplot2::ggplot(toPlot, ggplot2::aes(x = y, y = V1)) +
+  ggplot2::geom_point() +
+  ggplot2::labs(title = "Actual vs. Fitted values", x = "Actual", y = "Fitted")
+```
+
+The model is not good enough. It tends to under-predict values, and the influence of continent is not as big as it is in the model. There may be some more complicated relations of independent variables.
+
+### my_knn_cv
+
+```{r}
+train <- na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,
+                                                bill_depth_mm,
+                                                flipper_length_mm)
+cl <- na.omit(my_penguins) %>% dplyr::select(species)
+cv_error <- 1: 10
+train_error <- 1: 10
+n <- nrow(cl)
+for (k in 1: 10) {
+  cv_error[k] <- round(as.numeric(my_knn_cv(train, cl, k, 5)[2]), 5)
+  train_error[k] <- round(1 - sum(my_knn_cv(train, cl, k, 5)[1] == cl) / n, 5)
+}
+"CV misclassification rates"
+cv_error
+"training misclassification rates"
+train_error
+```
+
+When knn = 1, both the CV misclassification rates and training misclassification rates are lowest, so in practice I will choose knn = 1.  
+Cross-validation randomly divide the training data into several parts, and each time uses one of them as testing and others as training. Then with only one training data set, we can test many times, so we can better evaluate whether our model is good.
+
+### my_rf_cv
+
+```{r}
+train <- na.omit(my_penguins) %>% dplyr::select(body_mass_g, bill_length_mm,
+                                                bill_depth_mm,
+                                                flipper_length_mm)
+MSEs <- 1: 90
+dim(MSEs) <- c(3, 30)
+for (i in 1: 30) {
+  MSEs[1, i] <- my_rf_cv(train, 2)
+}
+for (i in 1: 30) {
+  MSEs[2, i] <- my_rf_cv(train, 5)
+}
+for (i in 1: 30) {
+  MSEs[3, i] <- my_rf_cv(train, 10)
+}
+row.names(MSEs) <- c("cv = 2", "cv = 5", "cv = 10")
+MSE_df2 <- data.frame("MSE" <- MSEs[1,], "cv" = "cv = 2")
+colnames(MSE_df2) <- c("MSE", "cv")
+MSE_df5 <- data.frame("MSE" <- MSEs[2,], "cv" = "cv = 5")
+colnames(MSE_df5) <- c("MSE", "cv")
+MSE_df10 <- data.frame("MSE" <- MSEs[3,], "cv" = "cv = 10")
+colnames(MSE_df10) <- c("MSE", "cv")
+MSE_df <- rbind(MSE_df2, MSE_df5, MSE_df10)
+ggplot2::ggplot(data = MSE_df) +
+  ggplot2::geom_boxplot(ggplot2::aes(x = cv, y = MSE)) +
+  ggplot2::labs(title = "Boxplot of different CV VS. MSE")
+
+stat_table <- 1: 6
+dim(stat_table) <- c(3, 2)
+for (i in 1: 3) {
+  stat_table[i, 1] <- mean(MSEs[i,])
+  stat_table[i, 2] <- sd(MSEs[i,])
+}
+row.names(stat_table) <- c("cv = 2", "cv = 5", "cv = 10")
+colnames(stat_table) <- c("mean", "standard deviation")
+as.table(stat_table)
+```
+
+From the table and boxplots, we can see that as k increases, both the means and standard deviations decreases. As we choose more CV, we get better and more steady predictions. At least in [2, 10] range, the more CV we choose, the model is better.

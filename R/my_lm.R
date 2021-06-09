@@ -24,7 +24,7 @@ my_lm <- function(formula, data) {
   standarError <- diag(sqrt(abs(variance * solve(t(x) %*% x))))
   t <- estimate / (standarError)
   p <- 2 * pt(abs(t), df, lower.tail = FALSE)
-  toReturn <- round(cbind(estimate, standarError, t, p), 3)
+  toReturn <- round(cbind(estimate, standarError, t, p), 5)
   colnames(toReturn) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
   return(as.table(toReturn))
 }
